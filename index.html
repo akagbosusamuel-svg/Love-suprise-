@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise 💝</title>
+    <title>A Special Surprise... 💝</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
@@ -14,7 +12,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             overflow-x: hidden;
@@ -32,58 +30,49 @@
             justify-content: center;
         }
 
-        /* Floating hearts background */
-        .floating-heart {
+        .heart {
             position: fixed;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 24px;
-            animation: floatUp 8s infinite ease-in-out;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
+            animation: float 10s infinite ease-in-out;
             pointer-events: none;
             z-index: 0;
         }
 
-        @keyframes floatUp {
-            0%, 100% { 
-                transform: translateY(100vh) rotate(0deg) scale(0.5); 
-                opacity: 0; 
-            }
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
             90% { opacity: 1; }
-            100% { 
-                transform: translateY(-100vh) rotate(720deg) scale(1.2); 
-                opacity: 0; 
-            }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* Layer styling */
         .layer {
             display: none;
-            animation: fadeInScale 0.8s ease-out;
+            animation: fadeIn 0.8s ease-in;
             text-align: center;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, 0.95);
             padding: 40px;
-            border-radius: 30px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             max-width: 90%;
             position: relative;
             overflow: hidden;
-            border: 3px solid rgba(255,255,255,0.5);
         }
 
         .layer.active {
             display: block;
+            animation: slideUp 0.6s ease-out;
         }
 
-        @keyframes fadeInScale {
-            from { 
-                opacity: 0; 
-                transform: scale(0.8) translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: scale(1) translateY(0); 
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         @keyframes pulse {
@@ -97,20 +86,10 @@
             75% { transform: translateX(10px); }
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            14% { transform: scale(1.3); }
-            28% { transform: scale(1); }
-            42% { transform: scale(1.3); }
-            70% { transform: scale(1); }
-        }
-
         h1 {
             color: #764ba2;
             margin-bottom: 20px;
-            font-size: 2.8em;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-size: 2.5em;
         }
 
         p {
@@ -124,78 +103,35 @@
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
             border: none;
-            padding: 18px 45px;
-            font-size: 1.2em;
+            padding: 15px 40px;
+            font-size: 1.1em;
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
             margin: 10px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
+            font-weight: bold;
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 35px rgba(245, 87, 108, 0.6);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        /* Progress bar */
-        .progress-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 600px;
-            z-index: 100;
-            background: rgba(255,255,255,0.3);
-            border-radius: 20px;
-            padding: 5px;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
-            width: 0%;
-            transition: width 0.6s ease;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(245, 87, 108, 0.5);
-        }
-
-        /* Layer 1: The Envelope */
-        .envelope-container {
-            perspective: 1000px;
-            margin: 30px auto;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
         }
 
         .envelope {
-            width: 220px;
-            height: 150px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
-            margin: 0 auto;
+            width: 200px;
+            height: 140px;
+            background: #ff6b6b;
+            margin: 20px auto;
             position: relative;
             cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            border-radius: 5px;
-            transform-style: preserve-3d;
+            transition: transform 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         .envelope:hover {
-            transform: scale(1.1) rotateY(10deg);
+            transform: scale(1.1);
             animation: shake 0.5s;
-        }
-
-        .envelope.open {
-            transform: rotateX(180deg);
-            opacity: 0;
         }
 
         .envelope-flap {
@@ -203,11 +139,11 @@
             top: 0;
             width: 0;
             height: 0;
-            border-left: 110px solid transparent;
-            border-right: 110px solid transparent;
-            border-top: 75px solid #ff5252;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 70px solid #ff5252;
             transform-origin: top;
-            transition: transform 0.6s;
+            transition: transform 0.4s;
             z-index: 2;
         }
 
@@ -220,9 +156,9 @@
             bottom: 0;
             width: 0;
             height: 0;
-            border-left: 110px solid #ff6b6b;
-            border-right: 110px solid #ff6b6b;
-            border-bottom: 75px solid #ff6b6b;
+            border-left: 100px solid #ff6b6b;
+            border-right: 100px solid #ff6b6b;
+            border-bottom: 70px solid #ff6b6b;
         }
 
         .envelope::after {
@@ -231,17 +167,15 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 50px;
+            font-size: 40px;
             z-index: 1;
-            animation: pulse 2s infinite;
         }
 
-        /* Layer 2: Puzzle */
         .puzzle-container {
             display: grid;
             grid-template-columns: repeat(3, 100px);
-            gap: 12px;
-            margin: 25px auto;
+            gap: 10px;
+            margin: 20px auto;
             width: fit-content;
         }
 
@@ -249,106 +183,90 @@
             width: 100px;
             height: 100px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 35px;
+            font-size: 30px;
             cursor: pointer;
-            transition: all 0.4s;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             color: white;
             position: relative;
             overflow: hidden;
-            border: 3px solid transparent;
         }
 
         .puzzle-piece:hover {
-            transform: scale(1.15) rotate(8deg);
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
-            border-color: #f5576c;
+            transform: scale(1.1) rotate(5deg);
         }
 
         .puzzle-piece.revealed {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            animation: pulse 0.6s;
-            border-color: white;
+            animation: pulse 0.5s;
         }
 
         .puzzle-piece.locked::after {
             content: '🔒';
             position: absolute;
-            font-size: 45px;
-            animation: pulse 2s infinite;
+            font-size: 40px;
         }
 
         .puzzle-piece.unlocked::after {
             content: attr(data-emoji);
-            font-size: 45px;
-            animation: popIn 0.5s;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0); }
-            80% { transform: scale(1.2); }
-            100% { transform: scale(1); }
-        }
-
-        /* Layer 3: Heart Lock */
-        .heart-lock-container {
-            margin: 30px auto;
-            position: relative;
-            width: 180px;
-            height: 180px;
+            font-size: 40px;
         }
 
         .heart-lock {
-            width: 100%;
-            height: 100%;
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
             position: relative;
             cursor: pointer;
-            transition: all 0.4s;
-            animation: heartbeat 1.5s infinite;
+            transition: transform 0.3s;
         }
 
         .heart-lock:hover {
-            transform: scale(1.15);
-            filter: drop-shadow(0 10px 30px rgba(231, 76, 60, 0.6));
+            transform: scale(1.1);
         }
 
-        .heart-shape {
+        .heart-lock .heart-shape {
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #e74c3c;
             position: relative;
             transform: rotate(-45deg);
-            box-shadow: -15px 15px 40px rgba(0,0,0,0.3);
-            transition: all 0.4s;
+            box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s;
         }
 
-        .heart-shape::before,
-        .heart-shape::after {
+        .heart-lock .heart-shape::before,
+        .heart-lock .heart-shape::after {
             content: '';
             width: 100%;
             height: 100%;
-            background: inherit;
+            background: #e74c3c;
             border-radius: 50%;
             position: absolute;
         }
 
-        .heart-shape::before {
+        .heart-lock .heart-shape::before {
             top: -50%;
             left: 0;
         }
 
-        .heart-shape::after {
+        .heart-lock .heart-shape::after {
             top: 0;
             left: 50%;
         }
 
         .heart-lock.unlocked .heart-shape {
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: #2ecc71;
             animation: pulse 1s infinite;
+        }
+
+        .heart-lock.unlocked .heart-shape::before,
+        .heart-lock.unlocked .heart-shape::after {
+            background: #2ecc71;
         }
 
         .lock-text {
@@ -357,23 +275,20 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 50px;
+            font-size: 40px;
             z-index: 10;
             font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        /* Layer 4: Scratch Card */
         .scratch-container {
             position: relative;
-            width: 320px;
-            height: 180px;
-            margin: 25px auto;
+            width: 300px;
+            height: 150px;
+            margin: 20px auto;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 20px;
+            border-radius: 15px;
             overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            cursor: crosshair;
         }
 
         .scratch-message {
@@ -382,13 +297,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
             color: white;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
             text-align: center;
             width: 100%;
             padding: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-            line-height: 1.4;
         }
 
         .scratch-overlay {
@@ -402,161 +315,149 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 22px;
-            font-weight: 600;
-            transition: opacity 0.8s;
-            cursor: pointer;
+            font-size: 18px;
+            cursor: crosshair;
         }
 
-        .scratch-overlay.scratched {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* Final Layer */
         .final-message {
             background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
             padding: 40px;
-            border-radius: 30px;
+            border-radius: 20px;
             position: relative;
             overflow: hidden;
-            border: 5px solid white;
         }
 
         .final-message h1 {
             color: #e74c3c;
-            font-size: 3.5em;
-            margin-bottom: 25px;
-            animation: heartbeat 2s infinite;
-            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
         }
 
         .love-letter {
             background: white;
-            padding: 35px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            margin: 25px 0;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 20px 0;
             text-align: left;
             font-family: 'Georgia', serif;
-            line-height: 2;
+            line-height: 1.8;
             color: #444;
             position: relative;
-            border: 2px solid #f8f8f8;
         }
 
         .love-letter::before {
             content: '❤️';
             position: absolute;
-            top: -15px;
-            right: 25px;
-            font-size: 40px;
+            top: -10px;
+            right: 20px;
+            font-size: 30px;
             animation: pulse 1s infinite;
         }
 
         .signature {
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.5em;
+            font-family: 'Brush Script MT', cursive;
+            font-size: 2em;
             color: #e74c3c;
-            margin-top: 25px;
-            transform: rotate(-3deg);
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            transform: rotate(-5deg);
         }
 
         .photo-frame {
-            width: 220px;
-            height: 220px;
-            border: 8px solid white;
+            width: 200px;
+            height: 200px;
+            border: 5px solid white;
             border-radius: 50%;
-            margin: 25px auto;
+            margin: 20px auto;
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 100px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            animation: floatUp 3s infinite ease-in-out;
+            font-size: 80px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: float 3s infinite ease-in-out;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            z-index: 100;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+            width: 0%;
+            transition: width 0.5s;
+            border-radius: 3px;
         }
 
         .clue-text {
             font-style: italic;
             color: #888;
-            margin-top: 15px;
-            font-size: 1em;
-            font-weight: 500;
+            margin-top: 10px;
+            font-size: 0.9em;
         }
 
-        input[type="text"] {
-            padding: 15px;
-            font-size: 1.2em;
-            border: 3px solid #ddd;
-            border-radius: 30px;
-            margin: 15px;
-            width: 220px;
-            text-align: center;
-            outline: none;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        input[type="text"]:focus {
-            border-color: #f5576c;
-            box-shadow: 0 0 20px rgba(245, 87, 108, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* Confetti */
         .confetti {
             position: fixed;
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             top: -10px;
-            animation: confetti-fall 4s linear forwards;
+            animation: confetti-fall 3s linear forwards;
             z-index: 1000;
         }
 
         @keyframes confetti-fall {
             to {
-                transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        /* Sparkle effect */
-        .sparkle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            animation: sparkle 1s infinite;
+        input[type="text"] {
+            padding: 12px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
         }
 
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
+        input[type="text"]:focus {
+            border-color: #f5576c;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2.2em; }
-            .puzzle-container { grid-template-columns: repeat(3, 85px); gap: 8px; }
-            .puzzle-piece { width: 85px; height: 85px; }
-            .final-message h1 { font-size: 2.8em; }
-            .envelope { width: 180px; height: 130px; }
+            h1 { font-size: 1.8em; }
+            .puzzle-container { grid-template-columns: repeat(3, 80px); gap: 5px; }
+            .puzzle-piece { width: 80px; height: 80px; }
+            .final-message h1 { font-size: 2em; }
         }
     </style>
 </head>
 <body>
-    <!-- Floating hearts background -->
     <div id="hearts-container"></div>
 
-    <!-- Progress bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
     <div class="container">
-        <!-- Layer 0: Welcome -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
         <div class="layer active" id="layer0">
             <h1>Hey Beautiful 💕</h1>
             <p>Samuel has a surprise for you...<br>But you need to unlock it layer by layer!</p>
@@ -564,20 +465,16 @@
             <button class="btn" onclick="nextLayer(1)">Start the Journey ✨</button>
         </div>
 
-        <!-- Layer 1: The Envelope -->
         <div class="layer" id="layer1">
             <h1>Special Delivery 📬</h1>
             <p>There's something waiting for you...</p>
-            <div class="envelope-container">
-                <div class="envelope" id="envelope" onclick="openEnvelope()">
-                    <div class="envelope-flap"></div>
-                    <div class="envelope-body"></div>
-                </div>
+            <div class="envelope" onclick="openEnvelope()">
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
             </div>
             <p class="clue-text">Click the envelope to open it!</p>
         </div>
 
-        <!-- Layer 2: Memory Puzzle -->
         <div class="layer" id="layer2">
             <h1>Piece by Piece 🧩</h1>
             <p>Unlock all the memories to proceed...</p>
@@ -596,7 +493,6 @@
             <button class="btn" id="puzzleNext" style="display:none;" onclick="nextLayer(3)">Continue ➡️</button>
         </div>
 
-        <!-- Layer 3: Secret Code -->
         <div class="layer" id="layer3">
             <h1>Secret Code 🔐</h1>
             <p>Enter the code hidden in the previous puzzle...</p>
@@ -605,23 +501,19 @@
                 <input type="text" id="codeInput" placeholder="Enter code" maxlength="4">
             </div>
             <button class="btn" onclick="checkCode()">Unlock 💝</button>
-            <p id="codeError" style="color: #e74c3c; display: none; font-weight: 600;">Try again! Hint: LOVE</p>
+            <p id="codeError" style="color: #e74c3c; display: none;">Try again! Hint: LOVE</p>
         </div>
 
-        <!-- Layer 4: Heart Lock -->
         <div class="layer" id="layer4">
             <h1>The Final Lock 💖</h1>
             <p>This heart holds the final secret...</p>
-            <div class="heart-lock-container">
-                <div class="heart-lock" id="heartLock" onclick="unlockHeart()">
-                    <div class="heart-shape"></div>
-                    <div class="lock-text" id="lockIcon">🔒</div>
-                </div>
+            <div class="heart-lock" id="heartLock" onclick="unlockHeart()">
+                <div class="heart-shape"></div>
+                <div class="lock-text" id="lockIcon">🔒</div>
             </div>
             <p class="clue-text">Click the heart to unlock it!</p>
         </div>
 
-        <!-- Layer 5: Scratch to Reveal -->
         <div class="layer" id="layer5">
             <h1>Almost There! 🎨</h1>
             <p>Scratch the card to reveal your surprise...</p>
@@ -629,14 +521,101 @@
                 <div class="scratch-message">You are<br>SAMUEL'S<br>Everything! 💕</div>
                 <div class="scratch-overlay" id="scratchOverlay">Click to reveal! 🖱️</div>
             </div>
-            <button class="btn" id="finalBtn" style="display:none; margin-top: 25px;" onclick="nextLayer(6)">See Final Message 💌</button>
+            <button class="btn" id="finalBtn" style="display:none; margin-top: 20px;" onclick="nextLayer(6)">See Final Message 💌</button>
         </div>
 
-        <!-- Layer 6: Final Message -->
         <div class="layer final-message" id="layer6">
             <h1>I Love You! ❤️</h1>
             <div class="photo-frame">👩‍❤️‍👨</div>
             <div class="love-letter">
                 <p>My Dearest,</p>
                 <p>If you're reading this, it means you've unlocked every layer of my heart, just like you have in real life.</p>
-                <p>Each puzzle piece represents a moment, a me
+                <p>Each puzzle piece represents a moment, a memory, or a reason why you mean everything to me. You are my favorite notification, my best friend, and my greatest adventure.</p>
+                <p>Thank you for being the most amazing person in my life. I fall for you more every single day (and I promise that's not gravity talking!).</p>
+                <p>Forever yours,</p>
+                <div class="signature">Samuel 😎❤️</div>
+            </div>
+            <button class="btn" onclick="createConfetti()">Celebrate with Confetti! 🎉</button>
+            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">Refresh to experience the magic again ✨</p>
+        </div>
+    </div>
+
+    <script>
+        let currentLayer = 0;
+        let unlockedPieces = 0;
+
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const symbols = ['❤️', '💖', '💕', '💗', '💝', '💘'];
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 10000);
+            }, 1000);
+        }
+
+        createHearts();
+
+        function updateProgress() {
+            const progress = ((currentLayer) / 6) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        }
+
+        function nextLayer(n) {
+            document.getElementById('layer' + currentLayer).classList.remove('active');
+            document.getElementById('layer' + n).classList.add('active');
+            currentLayer = n;
+            updateProgress();
+            if (n === 6) {
+                createConfetti();
+            }
+        }
+
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.add('open');
+            setTimeout(() => {
+                alert('💌 A letter reveals itself...');
+                nextLayer(2);
+            }, 600);
+        }
+
+        function unlockPiece(element) {
+            if (element.classList.contains('unlocked')) return;
+            element.classList.remove('locked');
+            element.classList.add('unlocked', 'revealed');
+            unlockedPieces++;
+            if (unlockedPieces === 9) {
+                document.getElementById('puzzleClue').textContent = 'All memories unlocked! The code is: LOVE';
+                document.getElementById('puzzleNext').style.display = 'inline-block';
+            }
+        }
+
+        function checkCode() {
+            const input = document.getElementById('codeInput').value.toUpperCase();
+            if (input === 'LOVE') {
+                nextLayer(4);
+            } else {
+                const error = document.getElementById('codeError');
+                error.style.display = 'block';
+                setTimeout(() => error.style.display = 'none', 2000);
+            }
+        }
+
+        function unlockHeart() {
+            const lock = document.getElementById('heartLock');
+            const icon = document.getElementById('lockIcon');
+            lock.classList.add('unlocked');
+            icon.textContent = '🔓';
+            setTimeout(() => {
+                createConfetti();
+                setTimeout(() => nextLayer(5), 1000);
+            }, 500);
+        }
+
+        function reveal
