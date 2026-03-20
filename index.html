@@ -1,40 +1,642 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For You</title>
-<style>
-body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;justify-content:center;align-items:center;margin:0;font-family:Arial}
-.box{background:white;padding:30px;border-radius:20px;text-align:center;max-width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-.hide{display:none}
-h1{color:#764ba2}
-button{background:linear-gradient(135deg,#f093fb,#f5576c);color:white;border:none;padding:15px 30px;border-radius:25px;cursor:pointer;font-size:16px;margin:10px}
-.env{width:150px;height:100px;background:#ff6b6b;margin:20px auto;cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:50px}
-.puz{display:grid;grid-template-columns:repeat(3,70px);gap:8px;justify-content:center;margin:20px 0}
-.pc{width:70px;height:70px;background:#667eea;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:25px;color:white}
-.hrt{font-size:80px;cursor:pointer;animation:p 1s infinite}
-@keyframes p{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
-input{padding:10px;border:2px solid #ddd;border-radius:20px;margin:10px;width:140px}
-.ltr{background:#fff5f5;padding:20px;border-radius:10px;text-align:left;line-height:1.6}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise 💝</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Floating hearts background */
+        .floating-heart {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 24px;
+            animation: floatUp 8s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg) scale(0.5); 
+                opacity: 0; 
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateY(-100vh) rotate(720deg) scale(1.2); 
+                opacity: 0; 
+            }
+        }
+
+        /* Layer styling */
+        .layer {
+            display: none;
+            animation: fadeInScale 0.8s ease-out;
+            text-align: center;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.4);
+            max-width: 90%;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid rgba(255,255,255,0.5);
+        }
+
+        .layer.active {
+            display: block;
+        }
+
+        @keyframes fadeInScale {
+            from { 
+                opacity: 0; 
+                transform: scale(0.8) translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: scale(1) translateY(0); 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.3); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.3); }
+            70% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #764ba2;
+            margin-bottom: 20px;
+            font-size: 2.8em;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.4);
+            margin: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(245, 87, 108, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Progress bar */
+        .progress-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            z-index: 100;
+            background: rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 5px;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+            width: 0%;
+            transition: width 0.6s ease;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(245, 87, 108, 0.5);
+        }
+
+        /* Layer 1: The Envelope */
+        .envelope-container {
+            perspective: 1000px;
+            margin: 30px auto;
+        }
+
+        .envelope {
+            width: 220px;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a5a 100%);
+            margin: 0 auto;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-radius: 5px;
+            transform-style: preserve-3d;
+        }
+
+        .envelope:hover {
+            transform: scale(1.1) rotateY(10deg);
+            animation: shake 0.5s;
+        }
+
+        .envelope.open {
+            transform: rotateX(180deg);
+            opacity: 0;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 110px solid transparent;
+            border-right: 110px solid transparent;
+            border-top: 75px solid #ff5252;
+            transform-origin: top;
+            transition: transform 0.6s;
+            z-index: 2;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 110px solid #ff6b6b;
+            border-right: 110px solid #ff6b6b;
+            border-bottom: 75px solid #ff6b6b;
+        }
+
+        .envelope::after {
+            content: '💌';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        /* Layer 2: Puzzle */
+        .puzzle-container {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 12px;
+            margin: 25px auto;
+            width: fit-content;
+        }
+
+        .puzzle-piece {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+        }
+
+        .puzzle-piece:hover {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+            border-color: #f5576c;
+        }
+
+        .puzzle-piece.revealed {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse 0.6s;
+            border-color: white;
+        }
+
+        .puzzle-piece.locked::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 45px;
+            animation: pulse 2s infinite;
+        }
+
+        .puzzle-piece.unlocked::after {
+            content: attr(data-emoji);
+            font-size: 45px;
+            animation: popIn 0.5s;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Layer 3: Heart Lock */
+        .heart-lock-container {
+            margin: 30px auto;
+            position: relative;
+            width: 180px;
+            height: 180px;
+        }
+
+        .heart-lock {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .heart-lock:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 10px 30px rgba(231, 76, 60, 0.6));
+        }
+
+        .heart-shape {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            position: relative;
+            transform: rotate(-45deg);
+            box-shadow: -15px 15px 40px rgba(0,0,0,0.3);
+            transition: all 0.4s;
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart-shape::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart-shape::after {
+            top: 0;
+            left: 50%;
+        }
+
+        .heart-lock.unlocked .heart-shape {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            animation: pulse 1s infinite;
+        }
+
+        .lock-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 50px;
+            z-index: 10;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Layer 4: Scratch Card */
+        .scratch-container {
+            position: relative;
+            width: 320px;
+            height: 180px;
+            margin: 25px auto;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .scratch-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1.4;
+        }
+
+        .scratch-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #bdc3c7 0%, #7f8c8d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: 600;
+            transition: opacity 0.8s;
+            cursor: pointer;
+        }
+
+        .scratch-overlay.scratched {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Final Layer */
+        .final-message {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 40px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 5px solid white;
+        }
+
+        .final-message h1 {
+            color: #e74c3c;
+            font-size: 3.5em;
+            margin-bottom: 25px;
+            animation: heartbeat 2s infinite;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .love-letter {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin: 25px 0;
+            text-align: left;
+            font-family: 'Georgia', serif;
+            line-height: 2;
+            color: #444;
+            position: relative;
+            border: 2px solid #f8f8f8;
+        }
+
+        .love-letter::before {
+            content: '❤️';
+            position: absolute;
+            top: -15px;
+            right: 25px;
+            font-size: 40px;
+            animation: pulse 1s infinite;
+        }
+
+        .signature {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            color: #e74c3c;
+            margin-top: 25px;
+            transform: rotate(-3deg);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .photo-frame {
+            width: 220px;
+            height: 220px;
+            border: 8px solid white;
+            border-radius: 50%;
+            margin: 25px auto;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            animation: floatUp 3s infinite ease-in-out;
+        }
+
+        .clue-text {
+            font-style: italic;
+            color: #888;
+            margin-top: 15px;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        input[type="text"] {
+            padding: 15px;
+            font-size: 1.2em;
+            border: 3px solid #ddd;
+            border-radius: 30px;
+            margin: 15px;
+            width: 220px;
+            text-align: center;
+            outline: none;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        input[type="text"]:focus {
+            border-color: #f5576c;
+            box-shadow: 0 0 20px rgba(245, 87, 108, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            top: -10px;
+            animation: confetti-fall 4s linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Sparkle effect */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2em; }
+            .puzzle-container { grid-template-columns: repeat(3, 85px); gap: 8px; }
+            .puzzle-piece { width: 85px; height: 85px; }
+            .final-message h1 { font-size: 2.8em; }
+            .envelope { width: 180px; height: 130px; }
+        }
+    </style>
 </head>
 <body>
-<div class="box">
-<div id="p0"><h1>Hey Beautiful 💕</h1><p>Samuel has a surprise...</p><button onclick="sh(1)">Start ✨</button></div>
-<div id="p1" class="hide"><h1>Open Me 💌</h1><div class="env" onclick="sh(2)">💌</div></div>
-<div id="p2" class="hide"><h1>Unlock All 🔐</h1><div class="puz"><div class="pc" onclick="ul(this,'💑')">🔒</div><div class="pc" onclick="ul(this,'🌹')">🔒</div><div class="pc" onclick="ul(this,'🌟')">🔒</div><div class="pc" onclick="ul(this,'💋')">🔒</div><div class="pc" onclick="ul(this,'❤️')">🔒</div><div class="pc" onclick="ul(this,'🔐')">🔒</div><div class="pc" onclick="ul(this,'🌙')">🔒</div><div class="pc" onclick="ul(this,'✨')">🔒</div><div class="pc" onclick="ul(this,'💖')">🔒</div></div><p id="pm">Click all 9 locks!</p><button id="b2" class="hide" onclick="sh(3)">Next ➡️</button></div>
-<div id="p3" class="hide"><h1>Code? 🔑</h1><p>Hint: What we share?</p><input id="cd" maxlength="4" placeholder="LOVE"><br><button onclick="ck()">Unlock</button><p id="er" class="hide" style="color:red">Try LOVE</p></div>
-<div id="p4" class="hide"><h1>Click Heart 💖</h1><div class="hrt" onclick="sh(5)">❤️</div></div>
-<div id="p5" class="hide"><h1>Reveal 🎨</h1><div style="background:linear-gradient(135deg,#f093fb,#f5576c);padding:30px;border-radius:15px;color:white;font-size:20px;font-weight:bold;cursor:pointer" onclick="this.innerHTML='You are SAMUEL&#39;S Everything! 💕';document.getElementById('b5').classList.remove('hide')">Click Here!</div><button id="b5" class="hide" onclick="sh(6)">Final 💌</button></div>
-<div id="p6" class="hide"><h1>I Love You! ❤️</h1><div style="font-size:60px">👩‍❤️‍👨</div><div class="ltr"><p>My Dearest,</p><p>You unlocked every layer of my heart.</p><p>Each piece represents why you mean everything to me.</p><p>Thank you for being my favorite person.</p><p>Forever yours,</p><p style="color:#e74c3c;font-size:20px;font-family:cursive">Samuel 😎❤️</p></div></div>
-</div>
-<script>
-let u=0;
-function sh(n){for(let i=0;i<7;i++)document.getElementById('p'+i).classList.add('hide');document.getElementById('p'+n).classList.remove('hide')}
-function ul(el,em){if(el.u)return;el.u=1;el.innerHTML=em;el.style.background='#f5576c';u++;if(u==9){document.getElementById('pm').innerText='Code: LOVE';document.getElementById('b2').classList.remove('hide')}}
-function ck(){if(document.getElementById('cd').value.toUpperCase()=='LOVE')sh(4);else document.getElementById('er').classList.remove('hide')}
-</script>
-</body>
-                                                                                                                                                                                                                                                                                              </html>
-                                                                                                                                                                                                                                                                                              
+    <!-- Floating hearts background -->
+    <div id="hearts-container"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <!-- Layer 0: Welcome -->
+        <div class="layer active" id="layer0">
+            <h1>Hey Beautiful 💕</h1>
+            <p>Samuel has a surprise for you...<br>But you need to unlock it layer by layer!</p>
+            <p class="clue-text">Each click brings you closer to the surprise...</p>
+            <button class="btn" onclick="nextLayer(1)">Start the Journey ✨</button>
+        </div>
+
+        <!-- Layer 1: The Envelope -->
+        <div class="layer" id="layer1">
+            <h1>Special Delivery 📬</h1>
+            <p>There's something waiting for you...</p>
+            <div class="envelope-container">
+                <div class="envelope" id="envelope" onclick="openEnvelope()">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                </div>
+            </div>
+            <p class="clue-text">Click the envelope to open it!</p>
+        </div>
+
+        <!-- Layer 2: Memory Puzzle -->
+        <div class="layer" id="layer2">
+            <h1>Piece by Piece 🧩</h1>
+            <p>Unlock all the memories to proceed...</p>
+            <div class="puzzle-container" id="puzzleGrid">
+                <div class="puzzle-piece locked" data-emoji="💑" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="🌹" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="🌟" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="💋" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="❤️" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="🔐" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="🌙" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="✨" onclick="unlockPiece(this)"></div>
+                <div class="puzzle-piece locked" data-emoji="💖" onclick="unlockPiece(this)"></div>
+            </div>
+            <p class="clue-text" id="puzzleClue">Click each piece to reveal the memories!</p>
+            <button class="btn" id="puzzleNext" style="display:none;" onclick="nextLayer(3)">Continue ➡️</button>
+        </div>
+
+        <!-- Layer 3: Secret Code -->
+        <div class="layer" id="layer3">
+            <h1>Secret Code 🔐</h1>
+            <p>Enter the code hidden in the previous puzzle...</p>
+            <p style="font-size: 0.9em; color: #666;">(Hint: Type "LOVE")</p>
+            <div>
+                <input type="text" id="codeInput" placeholder="Enter code" maxlength="4">
+            </div>
+            <button class="btn" onclick="checkCode()">Unlock 💝</button>
+            <p id="codeError" style="color: #e74c3c; display: none; font-weight: 600;">Try again! Hint: LOVE</p>
+        </div>
+
+        <!-- Layer 4: Heart Lock -->
+        <div class="layer" id="layer4">
+            <h1>The Final Lock 💖</h1>
+            <p>This heart holds the final secret...</p>
+            <div class="heart-lock-container">
+                <div class="heart-lock" id="heartLock" onclick="unlockHeart()">
+                    <div class="heart-shape"></div>
+                    <div class="lock-text" id="lockIcon">🔒</div>
+                </div>
+            </div>
+            <p class="clue-text">Click the heart to unlock it!</p>
+        </div>
+
+        <!-- Layer 5: Scratch to Reveal -->
+        <div class="layer" id="layer5">
+            <h1>Almost There! 🎨</h1>
+            <p>Scratch the card to reveal your surprise...</p>
+            <div class="scratch-container" id="scratchCard" onclick="revealScratch()">
+                <div class="scratch-message">You are<br>SAMUEL'S<br>Everything! 💕</div>
+                <div class="scratch-overlay" id="scratchOverlay">Click to reveal! 🖱️</div>
+            </div>
+            <button class="btn" id="finalBtn" style="display:none; margin-top: 25px;" onclick="nextLayer(6)">See Final Message 💌</button>
+        </div>
+
+        <!-- Layer 6: Final Message -->
+        <div class="layer final-message" id="layer6">
+            <h1>I Love You! ❤️</h1>
+            <div class="photo-frame">👩‍❤️‍👨</div>
+            <div class="love-letter">
+                <p>My Dearest,</p>
+                <p>If you're reading this, it means you've unlocked every layer of my heart, just like you have in real life.</p>
+                <p>Each puzzle piece represents a moment, a me
