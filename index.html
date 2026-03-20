@@ -1,621 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise... 💝</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Special Surprise 💝</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
+<style>
+body {
+    margin:0;
+    font-family:sans-serif;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    color:#333;
+    text-align:center;
+}
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+.layer {
+    display:none;
+    padding:30px;
+}
 
-        .heart {
-            position: fixed;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 20px;
-            animation: float 10s infinite ease-in-out;
-            pointer-events: none;
-            z-index: 0;
-        }
+.active {
+    display:block;
+}
 
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
-        }
+button {
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:#ff4d6d;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
 
-        .layer {
-            display: none;
-            animation: fadeIn 0.8s ease-in;
-            text-align: center;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 90%;
-            position: relative;
-            overflow: hidden;
-        }
+.envelope {
+    font-size:80px;
+    cursor:pointer;
+}
 
-        .layer.active {
-            display: block;
-            animation: slideUp 0.6s ease-out;
-        }
+.puzzle {
+    display:grid;
+    grid-template-columns:repeat(3,80px);
+    gap:10px;
+    justify-content:center;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+.piece {
+    background:#fff;
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    cursor:pointer;
+    border-radius:10px;
+}
 
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
+.lock {
+    font-size:80px;
+    cursor:pointer;
+}
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
+.scratch {
+    background:gray;
+    color:white;
+    padding:40px;
+    border-radius:10px;
+    cursor:pointer;
+}
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        h1 {
-            color: #764ba2;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-        }
-
-        p {
-            color: #555;
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1em;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
-            margin: 10px;
-            font-weight: bold;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
-        }
-
-        .envelope {
-            width: 200px;
-            height: 140px;
-            background: #ff6b6b;
-            margin: 20px auto;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .envelope:hover {
-            transform: scale(1.1);
-            animation: shake 0.5s;
-        }
-
-        .envelope-flap {
-            position: absolute;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-top: 70px solid #ff5252;
-            transform-origin: top;
-            transition: transform 0.4s;
-            z-index: 2;
-        }
-
-        .envelope.open .envelope-flap {
-            transform: rotateX(180deg);
-        }
-
-        .envelope-body {
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid #ff6b6b;
-            border-right: 100px solid #ff6b6b;
-            border-bottom: 70px solid #ff6b6b;
-        }
-
-        .envelope::after {
-            content: '💌';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40px;
-            z-index: 1;
-        }
-
-        .puzzle-container {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 10px;
-            margin: 20px auto;
-            width: fit-content;
-        }
-
-        .puzzle-piece {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .puzzle-piece:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .puzzle-piece.revealed {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            animation: pulse 0.5s;
-        }
-
-        .puzzle-piece.locked::after {
-            content: '🔒';
-            position: absolute;
-            font-size: 40px;
-        }
-
-        .puzzle-piece.unlocked::after {
-            content: attr(data-emoji);
-            font-size: 40px;
-        }
-
-        .heart-lock {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .heart-lock:hover {
-            transform: scale(1.1);
-        }
-
-        .heart-lock .heart-shape {
-            width: 100%;
-            height: 100%;
-            background: #e74c3c;
-            position: relative;
-            transform: rotate(-45deg);
-            box-shadow: -10px 10px 30px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-        }
-
-        .heart-lock .heart-shape::before,
-        .heart-lock .heart-shape::after {
-            content: '';
-            width: 100%;
-            height: 100%;
-            background: #e74c3c;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .heart-lock .heart-shape::before {
-            top: -50%;
-            left: 0;
-        }
-
-        .heart-lock .heart-shape::after {
-            top: 0;
-            left: 50%;
-        }
-
-        .heart-lock.unlocked .heart-shape {
-            background: #2ecc71;
-            animation: pulse 1s infinite;
-        }
-
-        .heart-lock.unlocked .heart-shape::before,
-        .heart-lock.unlocked .heart-shape::after {
-            background: #2ecc71;
-        }
-
-        .lock-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 40px;
-            z-index: 10;
-            font-weight: bold;
-        }
-
-        .scratch-container {
-            position: relative;
-            width: 300px;
-            height: 150px;
-            margin: 20px auto;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: crosshair;
-        }
-
-        .scratch-message {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            width: 100%;
-            padding: 20px;
-        }
-
-        .scratch-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #bdc3c7 0%, #7f8c8d 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-            cursor: crosshair;
-        }
-
-        .final-message {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 40px;
-            border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .final-message h1 {
-            color: #e74c3c;
-            font-size: 3em;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        .love-letter {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin: 20px 0;
-            text-align: left;
-            font-family: 'Georgia', serif;
-            line-height: 1.8;
-            color: #444;
-            position: relative;
-        }
-
-        .love-letter::before {
-            content: '❤️';
-            position: absolute;
-            top: -10px;
-            right: 20px;
-            font-size: 30px;
-            animation: pulse 1s infinite;
-        }
-
-        .signature {
-            font-family: 'Brush Script MT', cursive;
-            font-size: 2em;
-            color: #e74c3c;
-            margin-top: 20px;
-            transform: rotate(-5deg);
-        }
-
-        .photo-frame {
-            width: 200px;
-            height: 200px;
-            border: 5px solid white;
-            border-radius: 50%;
-            margin: 20px auto;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: float 3s infinite ease-in-out;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(0,0,0,0.1);
-            border-radius: 3px;
-            margin: 20px 0;
-            overflow: hidden;
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 600px;
-            z-index: 100;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
-            width: 0%;
-            transition: width 0.5s;
-            border-radius: 3px;
-        }
-
-        .clue-text {
-            font-style: italic;
-            color: #888;
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            top: -10px;
-            animation: confetti-fall 3s linear forwards;
-            z-index: 1000;
-        }
-
-        @keyframes confetti-fall {
-            to {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        input[type="text"] {
-            padding: 12px;
-            font-size: 1.1em;
-            border: 2px solid #ddd;
-            border-radius: 25px;
-            margin: 10px;
-            width: 200px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus {
-            border-color: #f5576c;
-        }
-
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8em; }
-            .puzzle-container { grid-template-columns: repeat(3, 80px); gap: 5px; }
-            .puzzle-piece { width: 80px; height: 80px; }
-            .final-message h1 { font-size: 2em; }
-        }
-    </style>
+</style>
 </head>
+
 <body>
-    <div id="hearts-container"></div>
 
-    <div class="container">
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressBar"></div>
-        </div>
+<!-- MUSIC -->
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
-        <div class="layer active" id="layer0">
-            <h1>Hey Beautiful 💕</h1>
-            <p>Samuel has a surprise for you...<br>But you need to unlock it layer by layer!</p>
-            <p class="clue-text">Each click brings you closer to the surprise...</p>
-            <button class="btn" onclick="nextLayer(1)">Start the Journey ✨</button>
-        </div>
+<!-- LAYER 0 -->
+<div class="layer active" id="layer0">
+<h1>Hey Beautiful 💕</h1>
+<p>I made something for you...</p>
+<button onclick="start()">Start 💖</button>
+</div>
 
-        <div class="layer" id="layer1">
-            <h1>Special Delivery 📬</h1>
-            <p>There's something waiting for you...</p>
-            <div class="envelope" onclick="openEnvelope()">
-                <div class="envelope-flap"></div>
-                <div class="envelope-body"></div>
-            </div>
-            <p class="clue-text">Click the envelope to open it!</p>
-        </div>
+<!-- LAYER 1 -->
+<div class="layer" id="layer1">
+<h1>Open this 💌</h1>
+<div class="envelope" onclick="next(2)">💌</div>
+</div>
 
-        <div class="layer" id="layer2">
-            <h1>Piece by Piece 🧩</h1>
-            <p>Unlock all the memories to proceed...</p>
-            <div class="puzzle-container" id="puzzleGrid">
-                <div class="puzzle-piece locked" data-emoji="💑" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="🌹" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="🌟" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="💋" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="❤️" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="🔐" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="🌙" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="✨" onclick="unlockPiece(this)"></div>
-                <div class="puzzle-piece locked" data-emoji="💖" onclick="unlockPiece(this)"></div>
-            </div>
-            <p class="clue-text" id="puzzleClue">Click each piece to reveal the memories!</p>
-            <button class="btn" id="puzzleNext" style="display:none;" onclick="nextLayer(3)">Continue ➡️</button>
-        </div>
+<!-- LAYER 2 -->
+<div class="layer" id="layer2">
+<h1>Unlock all 💕</h1>
 
-        <div class="layer" id="layer3">
-            <h1>Secret Code 🔐</h1>
-            <p>Enter the code hidden in the previous puzzle...</p>
-            <p style="font-size: 0.9em; color: #666;">(Hint: Type "LOVE")</p>
-            <div>
-                <input type="text" id="codeInput" placeholder="Enter code" maxlength="4">
-            </div>
-            <button class="btn" onclick="checkCode()">Unlock 💝</button>
-            <p id="codeError" style="color: #e74c3c; display: none;">Try again! Hint: LOVE</p>
-        </div>
+<div class="puzzle">
+<div class="piece" onclick="reveal(this)">❤️</div>
+<div class="piece" onclick="reveal(this)">💖</div>
+<div class="piece" onclick="reveal(this)">💕</div>
+<div class="piece" onclick="reveal(this)">💘</div>
+<div class="piece" onclick="reveal(this)">💝</div>
+<div class="piece" onclick="reveal(this)">🌹</div>
+<div class="piece" onclick="reveal(this)">✨</div>
+<div class="piece" onclick="reveal(this)">💫</div>
+<div class="piece" onclick="reveal(this)">😍</div>
+</div>
 
-        <div class="layer" id="layer4">
-            <h1>The Final Lock 💖</h1>
-            <p>This heart holds the final secret...</p>
-            <div class="heart-lock" id="heartLock" onclick="unlockHeart()">
-                <div class="heart-shape"></div>
-                <div class="lock-text" id="lockIcon">🔒</div>
-            </div>
-            <p class="clue-text">Click the heart to unlock it!</p>
-        </div>
+<br>
+<button id="nextPuzzle" style="display:none;" onclick="next(3)">Continue</button>
+</div>
 
-        <div class="layer" id="layer5">
-            <h1>Almost There! 🎨</h1>
-            <p>Scratch the card to reveal your surprise...</p>
-            <div class="scratch-container" id="scratchCard" onclick="revealScratch()">
-                <div class="scratch-message">You are<br>SAMUEL'S<br>Everything! 💕</div>
-                <div class="scratch-overlay" id="scratchOverlay">Click to reveal! 🖱️</div>
-            </div>
-            <button class="btn" id="finalBtn" style="display:none; margin-top: 20px;" onclick="nextLayer(6)">See Final Message 💌</button>
-        </div>
+<!-- LAYER 3 -->
+<div class="layer" id="layer3">
+<h1>Enter Code 🔐</h1>
+<p>Hint: Love code</p>
+<input id="code" placeholder="Enter code">
+<br><br>
+<button onclick="check()">Unlock</button>
+<p id="error" style="color:red;display:none;">Wrong code</p>
+</div>
 
-        <div class="layer final-message" id="layer6">
-            <h1>I Love You! ❤️</h1>
-            <div class="photo-frame">👩‍❤️‍👨</div>
-            <div class="love-letter">
-                <p>My Dearest,</p>
-                <p>If you're reading this, it means you've unlocked every layer of my heart, just like you have in real life.</p>
-                <p>Each puzzle piece represents a moment, a memory, or a reason why you mean everything to me. You are my favorite notification, my best friend, and my greatest adventure.</p>
-                <p>Thank you for being the most amazing person in my life. I fall for you more every single day (and I promise that's not gravity talking!).</p>
-                <p>Forever yours,</p>
-                <div class="signature">Samuel 😎❤️</div>
-            </div>
-            <button class="btn" onclick="createConfetti()">Celebrate with Confetti! 🎉</button>
-            <p style="margin-top: 20px; font-size: 0.9em; color: #666;">Refresh to experience the magic again ✨</p>
-        </div>
-    </div>
+<!-- LAYER 4 -->
+<div class="layer" id="layer4">
+<h1>Unlock my heart 💖</h1>
+<div class="lock" onclick="next(5)">🔒</div>
+</div>
 
-    <script>
-        let currentLayer = 0;
-        let unlockedPieces = 0;
+<!-- LAYER 5 -->
+<div class="layer" id="layer5">
+<h1>Tap to reveal 🎁</h1>
+<div class="scratch" onclick="revealFinal()">Tap here</div>
+<br>
+<button id="finalBtn" style="display:none;" onclick="next(6)">Final 💌</button>
+</div>
 
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const symbols = ['❤️', '💖', '💕', '💗', '💝', '💘'];
-            setInterval(() => {
-                const heart = document.createElement('div');
-                heart.className = 'heart';
-                heart.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-                heart.style.left = Math.random() * 100 + '%';
-                heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
-                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
-                container.appendChild(heart);
-                setTimeout(() => heart.remove(), 10000);
-            }, 1000);
-        }
+<!-- FINAL -->
+<div class="layer" id="layer6">
+<h1>I Love You ❤️</h1>
+<p>You mean everything to me.</p>
+<button onclick="confetti()">Celebrate 🎉</button>
+</div>
 
-        createHearts();
+<script>
 
-        function updateProgress() {
-            const progress = ((currentLayer) / 6) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
+let current = 0;
+let count = 0;
 
-        function nextLayer(n) {
-            document.getElementById('layer' + currentLayer).classList.remove('active');
-            document.getElementById('layer' + n).classList.add('active');
-            currentLayer = n;
-            updateProgress();
-            if (n === 6) {
-                createConfetti();
-            }
-        }
+// start + music
+function start(){
+document.getElementById("music").play().catch(()=>{});
+next(1);
+}
 
-        function openEnvelope() {
-            const envelope = document.querySelector('.envelope');
-            envelope.classList.add('open');
-            setTimeout(() => {
-                alert('💌 A letter reveals itself...');
-                nextLayer(2);
-            }, 600);
-        }
+// change layer
+function next(n){
+document.getElementById("layer"+current).classList.remove("active");
+document.getElementById("layer"+n).classList.add("active");
+current = n;
+}
 
-        function unlockPiece(element) {
-            if (element.classList.contains('unlocked')) return;
-            element.classList.remove('locked');
-            element.classList.add('unlocked', 'revealed');
-            unlockedPieces++;
-            if (unlockedPieces === 9) {
-                document.getElementById('puzzleClue').textContent = 'All memories unlocked! The code is: LOVE';
-                document.getElementById('puzzleNext').style.display = 'inline-block';
-            }
-        }
+// puzzle
+function reveal(el){
+if(el.clicked) return;
+el.style.background="#ff4d6d";
+el.clicked = true;
+count++;
 
-        function checkCode() {
-            const input = document.getElementById('codeInput').value.toUpperCase();
-            if (input === 'LOVE') {
-                nextLayer(4);
-            } else {
-                const error = document.getElementById('codeError');
-                error.style.display = 'block';
-                setTimeout(() => error.style.display = 'none', 2000);
-            }
-        }
+if(count === 9){
+document.getElementById("nextPuzzle").style.display="inline-block";
+}
+}
 
-        function unlockHeart() {
-            const lock = document.getElementById('heartLock');
-            const icon = document.getElementById('lockIcon');
-            lock.classList.add('unlocked');
-            icon.textContent = '🔓';
-            setTimeout(() => {
-                createConfetti();
-                setTimeout(() => nextLayer(5), 1000);
-            }, 500);
-        }
+// code
+function check(){
+let val = document.getElementById("code").value;
 
-        function reveal
+if(val === "143"){
+next(4);
+}else{
+document.getElementById("error").style.display="block";
+}
+}
+
+// scratch
+function revealFinal(){
+document.querySelector(".scratch").innerHTML="You are my everything 💕";
+document.getElementById("finalBtn").style.display="inline-block";
+}
+
+// confetti
+function confetti(){
+for(let i=0;i<50;i++){
+let d=document.createElement("div");
+d.style.position="fixed";
+d.style.width="10px";
+d.style.height="10px";
+d.style.background="hsl("+Math.random()*360+",100%,50%)";
+d.style.top="0";
+d.style.left=Math.random()*100+"%";
+document.body.appendChild(d);
+
+setTimeout(()=>d.remove(),2000);
+}
+}
+
+</script>
+
+</body>
+</html>
