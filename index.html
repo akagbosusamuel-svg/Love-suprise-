@@ -15,6 +15,7 @@ body{
   align-items:center;
   height:100vh;
   color:#333;
+  overflow:hidden;
 }
 
 .box{
@@ -24,6 +25,12 @@ body{
   text-align:center;
   max-width:320px;
   width:90%;
+  animation:fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 button{
@@ -38,6 +45,41 @@ button{
 }
 
 .hidden{display:none;}
+
+/* Letter Style */
+.letter{
+  text-align:left;
+  background:#fff8f9;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  animation:openLetter 0.8s ease;
+}
+
+@keyframes openLetter{
+  from{
+    transform:scale(0.8) rotateX(20deg);
+    opacity:0;
+  }
+  to{
+    transform:scale(1) rotateX(0);
+    opacity:1;
+  }
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:20px;
+  animation:floatUp 6s linear infinite;
+  opacity:0.6;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-100vh);}
+}
 </style>
 </head>
 
@@ -72,9 +114,36 @@ button{
 </div>
 
 <div class="box hidden" id="step5">
-  <h2>🎁 Final Message</h2>
-  <p>You mean everything to me ❤️</p>
-  <p><b>Samuel 😎❤️</b></p>
+  <div class="letter">
+    <h2>My Love 💌</h2>
+
+    <p>
+      If you’re reading this… it means you made it through every little step I set up just for you.
+    </p>
+
+    <p>
+      I didn’t just want to tell you how much you mean to me…  
+      I wanted you to feel it — slowly, piece by piece, just like this.
+    </p>
+
+    <p>
+      You make my days lighter, my nights warmer, and my life better in ways I can’t even explain properly.
+    </p>
+
+    <p>
+      And honestly… I just want you to know one thing:
+    </p>
+
+    <p style="font-weight:bold; font-size:18px; color:#ff4d6d;">
+      I really, really love you ❤️
+    </p>
+
+    <p>Forever yours,</p>
+
+    <p style="font-size:20px; font-family:cursive;">
+      Samuel 😎❤️
+    </p>
+  </div>
 </div>
 
 <script>
@@ -86,19 +155,21 @@ function show(n){
   current=n;
 }
 
-// start
+// Start
 document.getElementById("start").onclick=()=>show(1);
 
-// envelope
+// Envelope
 document.getElementById("envelope").onclick=()=>show(2);
 
-// puzzle
+// Puzzle
 let puzzle=document.getElementById("puzzle");
 let count=0;
 
 for(let i=0;i<6;i++){
   let b=document.createElement("button");
   b.innerText="❓";
+  b.style.margin="5px";
+
   b.onclick=function(){
     if(b.innerText==="❓"){
       b.innerText="❤️";
@@ -108,12 +179,13 @@ for(let i=0;i<6;i++){
       }
     }
   };
+
   puzzle.appendChild(b);
 }
 
 document.getElementById("nextPuzzle").onclick=()=>show(3);
 
-// code
+// Code
 document.getElementById("check").onclick=()=>{
   let val=document.getElementById("code").value.toLowerCase();
   if(val==="love"){
@@ -123,8 +195,19 @@ document.getElementById("check").onclick=()=>{
   }
 };
 
-// heart
+// Heart
 document.getElementById("heart").onclick=()=>show(5);
+
+// Floating hearts
+setInterval(()=>{
+  let heart=document.createElement("div");
+  heart.className="heart";
+  heart.innerText="❤️";
+  heart.style.left=Math.random()*100+"%";
+  document.body.appendChild(heart);
+
+  setTimeout(()=>heart.remove(),6000);
+},800);
 </script>
 
 </body>
