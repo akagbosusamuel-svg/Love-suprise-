@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You</title>
+<style>
+body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;justify-content:center;align-items:center;margin:0;font-family:Arial}
+.box{background:white;padding:30px;border-radius:20px;text-align:center;max-width:90%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.hide{display:none}
+h1{color:#764ba2}
+button{background:linear-gradient(135deg,#f093fb,#f5576c);color:white;border:none;padding:15px 30px;border-radius:25px;cursor:pointer;font-size:16px;margin:10px}
+.env{width:150px;height:100px;background:#ff6b6b;margin:20px auto;cursor:pointer;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:50px}
+.puz{display:grid;grid-template-columns:repeat(3,70px);gap:8px;justify-content:center;margin:20px 0}
+.pc{width:70px;height:70px;background:#667eea;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:25px;color:white}
+.hrt{font-size:80px;cursor:pointer;animation:p 1s infinite}
+@keyframes p{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+input{padding:10px;border:2px solid #ddd;border-radius:20px;margin:10px;width:140px}
+.ltr{background:#fff5f5;padding:20px;border-radius:10px;text-align:left;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="box">
+<div id="p0"><h1>Hey Beautiful 💕</h1><p>Samuel has a surprise...</p><button onclick="sh(1)">Start ✨</button></div>
+<div id="p1" class="hide"><h1>Open Me 💌</h1><div class="env" onclick="sh(2)">💌</div></div>
+<div id="p2" class="hide"><h1>Unlock All 🔐</h1><div class="puz"><div class="pc" onclick="ul(this,'💑')">🔒</div><div class="pc" onclick="ul(this,'🌹')">🔒</div><div class="pc" onclick="ul(this,'🌟')">🔒</div><div class="pc" onclick="ul(this,'💋')">🔒</div><div class="pc" onclick="ul(this,'❤️')">🔒</div><div class="pc" onclick="ul(this,'🔐')">🔒</div><div class="pc" onclick="ul(this,'🌙')">🔒</div><div class="pc" onclick="ul(this,'✨')">🔒</div><div class="pc" onclick="ul(this,'💖')">🔒</div></div><p id="pm">Click all 9 locks!</p><button id="b2" class="hide" onclick="sh(3)">Next ➡️</button></div>
+<div id="p3" class="hide"><h1>Code? 🔑</h1><p>Hint: What we share?</p><input id="cd" maxlength="4" placeholder="LOVE"><br><button onclick="ck()">Unlock</button><p id="er" class="hide" style="color:red">Try LOVE</p></div>
+<div id="p4" class="hide"><h1>Click Heart 💖</h1><div class="hrt" onclick="sh(5)">❤️</div></div>
+<div id="p5" class="hide"><h1>Reveal 🎨</h1><div style="background:linear-gradient(135deg,#f093fb,#f5576c);padding:30px;border-radius:15px;color:white;font-size:20px;font-weight:bold;cursor:pointer" onclick="this.innerHTML='You are SAMUEL&#39;S Everything! 💕';document.getElementById('b5').classList.remove('hide')">Click Here!</div><button id="b5" class="hide" onclick="sh(6)">Final 💌</button></div>
+<div id="p6" class="hide"><h1>I Love You! ❤️</h1><div style="font-size:60px">👩‍❤️‍👨</div><div class="ltr"><p>My Dearest,</p><p>You unlocked every layer of my heart.</p><p>Each piece represents why you mean everything to me.</p><p>Thank you for being my favorite person.</p><p>Forever yours,</p><p style="color:#e74c3c;font-size:20px;font-family:cursive">Samuel 😎❤️</p></div></div>
+</div>
+<script>
+let u=0;
+function sh(n){for(let i=0;i<7;i++)document.getElementById('p'+i).classList.add('hide');document.getElementById('p'+n).classList.remove('hide')}
+function ul(el,em){if(el.u)return;el.u=1;el.innerHTML=em;el.style.background='#f5576c';u++;if(u==9){document.getElementById('pm').innerText='Code: LOVE';document.getElementById('b2').classList.remove('hide')}}
+function ck(){if(document.getElementById('cd').value.toUpperCase()=='LOVE')sh(4);else document.getElementById('er').classList.remove('hide')}
+</script>
+</body>
+                                                                                                                                                                                                                                                                                              </html>
+                                                                                                                                                                                                                                                                                              
